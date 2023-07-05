@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- <bgsound src="bgMusic.mp3"></bgsound> -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Image-Slider</title>
+    <link rel="stylesheet" href="imageSlider.css" />
+    <script src="https://unpkg.com/wavesurfer.js"></script>
+  </head>
+  <body>
+    <div class="img-slider">
+      <div class="slide active">
+        <img src="1.jpeg" alt="" />
+        <div class="info">
+          <h2></h2>
+          <p>
+            Someone is turning 19!
+          </p>
+        </div>
+      </div>
+      <div class="slide">
+        <img src="2.jpeg" alt="" />
+        <div class="info">
+          <p>
+            The Hundreds of nights we have spent laughing mindlessly, discussing the<br> silliest things 
+            possible.
+          </p>
+        </div>
+      </div>
+      <div class="slide">
+        <img src="3.jpg" alt="" />
+        <div class="infoo">
+          <p>
+            A Picture needs not be of a high resolution to be<br> loved!
+            It's our togetherness which matters :)
+          </p>
+        </div>
+      </div>
+      <div class="slide">
+        <img src="4.jpeg" alt="" />
+        <div class="infi">
+          <p>
+            Life seems a little easier with you being around!
+          </p>
+        </div>
+      </div>
+      <div class="slide">
+        <img src="d.jpeg" alt="" />
+        <div class="info">
+          <p>
+            Congratulations huda on successfully completing another orbit around the sun! Happy birthday to the coolest person I know! You bring so much style and swagger to everything you do, and I hope your day is just as awesome as you are. Singing Baar Baar Din Aye for you! ❤️🥺
+          </p>
+        </div>
+      </div>
+      <div class="slide">
+        <img src="5.jpeg" alt="" />
+        <div class="info">
+          
+        </div>
+      </div>
+      <div class="slide">
+        <img src="6.jpeg" alt="" />
+        <div class="info">
+          <p>
+            THE FAMILY 
+            </p>
+        </div>
+      </div>
+      <div class="slide">
+        <video src="Vdo .mp4" controls>
+        <div class="info">
+          <h2>Slide 06</h2>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque
+            autem at numquam optio deserunt, dolorum perspiciatis doloremque
+            iste illo delectus quo sunt, facere eaque rerum distinctio atque
+            dolor repudiandae facilis?
+          </p>
+        </div>
+      </div>
+      <div class="navigation">
+        <div class="btn active"></div>
+        <div class="btn"></div>
+        <div class="btn"></div>
+        <div class="btn"></div>
+        <div class="btn"></div>
+        <div class="btn"></div>
+        <div class="btn"></div>
+        <div class="btn"></div>
+      </div>
+    </div>
+    <!-- <audio controls autoplay loop>
+  <source src="bgMusic.mp3" type="audio/mp3" />
+</audio> -->
+    <div class="hero">
+      <a href="./last.html">Finally :D</a>
+
+      <div class="music">
+        <p>Alone we are strong… </p>
+        <h1>together we are stronger</h1>
+        <div class="track">
+          <img src="play.png" id="playBtn" />
+          <div id="waveform"></div>
+        </div>
+      </div>
+    </div>
+
+    <script type="text/javascript">
+      var playBtn = document.getElementById("playBtn");
+
+      var wavesurfer = WaveSurfer.create({
+        container: "#waveform",
+        waveColor: "#ddd",
+        progressColor: "#ff006c",
+        barWidth: 4,
+        responsive: true,
+        height: 90,
+        barRadius: 4,
+      });
+
+      wavesurfer.load("bgMusic.mp3");
+
+      playBtn.onclick = function(){
+        wavesurfer.playPause();
+        if(playBtn.src.includes("play.png")){
+          playBtn.src = "pause.png";
+        }else{
+          playBtn.src = "play.png"
+        }
+      }
+
+      wavesurfer.on('finish',function(){
+        playBtn.src = "play.png";
+        wavesurfer.stop();
+      })
+
+      var slides = document.querySelectorAll(".slide");
+      var btns = document.querySelectorAll(".btn");
+      let currentSlide = 1;
+
+      var manualNav = function (manual) {
+        slides.forEach((slide) => {
+          slide.classList.remove("active");
+
+          btns.forEach((btn) => {
+            btn.classList.remove("active");
+          });
+        });
+        slides[manual].classList.add("active");
+        btns[manual].classList.add("active");
+      };
+
+      btns.forEach((btn, i) => {
+        btn.addEventListener("click", () => {
+          manualNav(i);
+          currentSlide = i;
+        });
+      });
+
+      var repeat = function (activeClass) {
+        let active = document.getElementsByClassName("active");
+        let i = 1;
+
+        var repeater = () => {
+          setTimeout(function () {
+            [...active].forEach((activeSlide) => {
+              activeSlide.classList.remove("active");
+            });
+            slides[i].classList.add("active");
+            btns[i].classList.add("active");
+            i++;
+
+            if (slides.length == i) {
+              i = 0;
+            }
+
+            if (i >= slides.length) {
+              return;
+            }
+            repeater();
+          }, 10000);
+        };
+        repeater();
+      };
+      repeat();
+    </script>
+  </body>
+</html>
